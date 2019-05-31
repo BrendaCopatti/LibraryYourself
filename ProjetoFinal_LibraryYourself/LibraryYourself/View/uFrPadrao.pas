@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.StdCtrls,
-  Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons;
+  Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, uPadraoController;
 
 type
   TfrPadrao = class(TForm)
@@ -23,10 +23,11 @@ type
     btnIncluir: TBitBtn;
     lblPesquisarPor: TLabel;
     ListBox1: TListBox;
+    procedure FormShow(Sender: TObject);
   private
-    { Private declarations }
+    FPadraoController: TPadraoController;
   public
-    { Public declarations }
+    FObjetoTela: TObject;
   end;
 
 var
@@ -35,5 +36,10 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrPadrao.FormShow(Sender: TObject);
+begin
+  FPadraoController := TPadraoController.Create(FObjetoTela);
+end;
 
 end.

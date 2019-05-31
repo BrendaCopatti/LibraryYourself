@@ -11,6 +11,7 @@ object frPadrao: TfrPadrao
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object PageControl1: TPageControl
@@ -76,10 +77,6 @@ object frPadrao: TfrPadrao
     object tshCadastro: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 469
     end
   end
   object panBotoesCadastro: TPanel

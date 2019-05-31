@@ -2,21 +2,15 @@ unit uAutorModel;
 
 interface
 
-uses uGenericEntity, uCustomAttributesEntity;
-
 type
-  [TableName('autor')]
-  TAutorModel = class(TGenericEntity)
+  TAutorModel = class
   private
     FCodigo: Integer;
     FNome:   String;
     procedure SetCodigo(const Value: Integer);
     procedure SetNome(const Value: String);
   public
-    [KeyField('codigo')]
-    [FieldName('codigo')]
     property Codigo: Integer read FCodigo write SetCodigo;
-    [FieldName('nome')]
 	  property Nome:   String  read FNome   write SetNome;
 
     function ToString(): String; override;

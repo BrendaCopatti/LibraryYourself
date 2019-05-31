@@ -13,9 +13,13 @@ uses
   uFrPadrao in 'View\uFrPadrao.pas' {frPadrao},
   uCustomAttributesEntity in 'Frameworks\Persistencia\uCustomAttributesEntity.pas',
   uGenericEntity in 'Frameworks\Persistencia\uGenericEntity.pas',
-  //uModeloBaseDados in 'Frameworks\Persistencia\uModeloBaseDados.pas',
-  uDmAcessaBanco in 'DAO\uDmAcessaBanco.pas' {DataModule1: TDataModule};
-  //uGenericDAO in 'Frameworks\Persistencia\uGenericDAO.pas';
+  uDmAcessaBanco in 'DAO\uDmAcessaBanco.pas' {dmAcessaBanco: TDataModule},
+  uPadraoDAO in 'DAO\uPadraoDAO.pas',
+  uPadraoController in 'Controller\uPadraoController.pas',
+  uBancoModel in 'Model\uBancoModel.pas',
+  uPadraoSQL in 'SQLs\uPadraoSQL.pas';
+
+//uGenericDAO in 'Frameworks\Persistencia\uGenericDAO.pas';
 
 {$R *.res}
 
@@ -24,6 +28,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TfrPadrao, frPadrao);
-  Application.CreateForm(TDataModule1, DataModule1);
+  Application.CreateForm(TdmAcessaBanco, dmAcessaBanco);
   Application.Run;
 end.

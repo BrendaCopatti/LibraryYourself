@@ -1,8 +1,8 @@
-object DataModule1: TDataModule1
+object dmAcessaBanco: TdmAcessaBanco
   OldCreateOrder = False
   Height = 150
   Width = 215
-  object FDConnection1: TFDConnection
+  object fdcAcessoBanco: TFDConnection
     Left = 88
     Top = 56
   end

@@ -9,8 +9,8 @@ uses
   Data.DB, FireDAC.Comp.Client;
 
 type
-  TDataModule1 = class(TDataModule)
-    FDConnection1: TFDConnection;
+  TdmAcessaBanco = class(TDataModule)
+    fdcAcessoBanco: TFDConnection;
   private
     { Private declarations }
   public
@@ -18,7 +18,7 @@ type
   end;
 
 var
-  DataModule1: TDataModule1;
+  dmAcessaBanco: TdmAcessaBanco;
 
 implementation
 
