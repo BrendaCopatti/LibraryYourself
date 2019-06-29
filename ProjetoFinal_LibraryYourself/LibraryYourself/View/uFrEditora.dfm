@@ -1,23 +1,13 @@
-inherited frAutor: TfrAutor
-  Caption = 'Autor'
+inherited frEditora: TfrEditora
+  Caption = 'Editora'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcPadrao: TPageControl
+    ActivePage = tshCadastro
     inherited tshPesquisa: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 4
-      ExplicitWidth = 773
-      ExplicitHeight = 429
       inherited panPesquisa: TPanel
-        inherited lblPesquisar: TLabel
-          Left = 5
-          Width = 75
-          Caption = 'Nome do autor:'
-          ExplicitLeft = 5
-          ExplicitWidth = 75
-        end
         inherited btnPesquisar: TButton
           OnClick = btnPesquisarClick
         end
@@ -59,9 +49,5 @@ inherited frAutor: TfrAutor
     inherited btnGravar: TBitBtn
       OnClick = btnGravarClick
     end
-  end
-  inherited qryPadrao: TFDQuery
-    SQL.Strings = (
-      'select * from autor')
   end
 end

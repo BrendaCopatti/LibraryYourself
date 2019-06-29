@@ -13,13 +13,19 @@ type
     property Codigo: Integer read FCodigo write SetCodigo;
 	  property Nome:   String  read FNome   write SetNome;
 
-    function ToString(): String; override;
+    constructor Create(ACodigo: Integer = 0; ANome: String = '');
   end;
 implementation
 
 uses SysUtils;
 
 { TAutorModel }
+
+constructor TAutorModel.Create(ACodigo: Integer; ANome: String);
+begin
+  FCodigo := ACodigo;
+  FNome := ANome;
+end;
 
 procedure TAutorModel.SetCodigo(const Value: Integer);
 begin
@@ -29,13 +35,6 @@ end;
 procedure TAutorModel.SetNome(const Value: String);
 begin
   FNome := Value;
-end;
-
-function TAutorModel.ToString: String;
-begin
-  Result :=
-    Self.FCodigo.ToString + ' - ' +
-    Self.FNome;
 end;
 
 end.

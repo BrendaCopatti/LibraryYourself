@@ -35,9 +35,9 @@ type
     procedure btnCancelarClick(Sender: TObject);
   private
     FPadraoController: TPadraoController;
-    procedure AjustaVisibilidadeBotoes();
   public
     FObjetoTela: TObject;
+    procedure AjustaVisibilidadeBotoes();
   end;
 
 var

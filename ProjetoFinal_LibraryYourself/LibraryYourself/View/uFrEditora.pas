@@ -1,86 +1,82 @@
-unit uFrAutor;
+unit uFrEditora;
 
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrPadrao, Data.DB, Vcl.Buttons,
-  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls,
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
-  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  uAutorController;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrPadrao, Data.DB, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  Vcl.ExtCtrls, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Buttons,
+  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.ComCtrls, uEditoraController;
 
 type
-  TfrAutor = class(TfrPadrao)
+  TfrEditora = class(TfrPadrao)
     edtCodigo: TLabeledEdit;
     edtNome: TLabeledEdit;
     procedure btnGravarClick(Sender: TObject);
+    procedure btnIncluirClick(Sender: TObject);
+    procedure btnPesquisarClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure btnIncluirClick(Sender: TObject);
-    procedure btnExcluirClick(Sender: TObject);
-    procedure btnPesquisarClick(Sender: TObject);
-    procedure btnCancelarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure dbgPadraoDblClick(Sender: TObject);
   private
-    FAutorController: TAutorController;
+    FEditoraController: TEditoraController;
     procedure LimpaCampos();
     procedure IncluirRegistro();
     function GravarRegistro(): Boolean;
     function ExcluirRegistro(): Boolean;
-    procedure PesquisarAutor();
+    procedure PesquisarRegistros();
     function ValidaCampos(): Boolean;
     procedure EditarRegistro();
   public
+    { Public declarations }
   end;
 
 var
-  frAutor: TfrAutor;
+  frEditora: TfrEditora;
 
 implementation
 
-uses uAutorModel;
+uses uEditoraModel;
 
 {$R *.dfm}
 
-procedure TfrAutor.btnCancelarClick(Sender: TObject);
-begin
-  inherited;
-  LimpaCampos();
-end;
+{ TfrEditora }
 
-procedure TfrAutor.btnExcluirClick(Sender: TObject);
+procedure TfrEditora.btnExcluirClick(Sender: TObject);
 begin
   inherited;
   ExcluirRegistro();
 end;
 
-procedure TfrAutor.btnGravarClick(Sender: TObject);
+procedure TfrEditora.btnGravarClick(Sender: TObject);
 begin
   inherited;
   GravarRegistro();
 end;
 
-procedure TfrAutor.btnIncluirClick(Sender: TObject);
+procedure TfrEditora.btnIncluirClick(Sender: TObject);
 begin
   inherited;
   IncluirRegistro();
 end;
 
-procedure TfrAutor.btnPesquisarClick(Sender: TObject);
+procedure TfrEditora.btnPesquisarClick(Sender: TObject);
 begin
-  PesquisarAutor();
+  inherited;
+  PesquisarRegistros();
 end;
 
-procedure TfrAutor.dbgPadraoDblClick(Sender: TObject);
+procedure TfrEditora.dbgPadraoDblClick(Sender: TObject);
 begin
   inherited;
   EditarRegistro();
 end;
 
-procedure TfrAutor.EditarRegistro;
+procedure TfrEditora.EditarRegistro;
 begin
   if not (qryPadrao.FieldByName('codigo').AsInteger > 0) then
     Exit;
@@ -90,66 +86,66 @@ begin
   AjustaVisibilidadeBotoes();
 end;
 
-function TfrAutor.ExcluirRegistro: Boolean;
+function TfrEditora.ExcluirRegistro: Boolean;
 begin
-  FAutorController.ExcluirRegistro(qryPadrao.FieldByName('CODIGO').AsInteger);
+  FEditoraController.ExcluirRegistro(qryPadrao.FieldByName('CODIGO').AsInteger);
 end;
 
-procedure TfrAutor.FormCreate(Sender: TObject);
-begin
-  inherited;
-  FAutorController := TAutorController.Create;
-end;
-
-procedure TfrAutor.FormDestroy(Sender: TObject);
+procedure TfrEditora.FormCreate(Sender: TObject);
 begin
   inherited;
-  FreeAndNil(FAutorController);
+  FEditoraController := TEditoraController.Create;
 end;
 
-procedure TfrAutor.FormShow(Sender: TObject);
+procedure TfrEditora.FormDestroy(Sender: TObject);
 begin
   inherited;
-  PesquisarAutor();
+  FreeAndNil(FEditoraController);
 end;
 
-function TfrAutor.GravarRegistro: Boolean;
-var LAutor: TAutorModel;
+procedure TfrEditora.FormShow(Sender: TObject);
+begin
+  inherited;
+  PesquisarRegistros();
+end;
+
+function TfrEditora.GravarRegistro: Boolean;
+var LEditora: TEditoraModel;
 begin
   if not ValidaCampos() then
     Exit;
-  LAutor := TAutorModel.Create;
+  LEditora := TEditoraModel.Create;
   try
-    LAutor.Codigo := StrToIntDef(edtCodigo.Text,0);
-    LAutor.Nome   := edtNome.Text;
+    LEditora.Codigo := StrToIntDef(edtCodigo.Text,0);
+    LEditora.Nome   := edtNome.Text;
 
-    if FAutorController.GravarRegistro(LAutor) then
+    if FEditoraController.GravarRegistro(LEditora) then
     begin
       LimpaCampos();
       ShowMessage('Registro incluído com sucesso.');
     end;
   finally
-    FreeAndNil(LAutor);
+    FreeAndNil(LEditora);
   end;
 end;
 
-procedure TfrAutor.IncluirRegistro;
+procedure TfrEditora.IncluirRegistro;
 begin
   LimpaCampos();
 end;
 
-procedure TfrAutor.LimpaCampos;
+procedure TfrEditora.LimpaCampos;
 begin
   edtCodigo.Text := '';
   edtNome.Text   := '';
 end;
 
-procedure TfrAutor.PesquisarAutor;
+procedure TfrEditora.PesquisarRegistros;
 var LSQL: String;
     LPesquisaComFiltro: Boolean;
 begin
   LSQL :=
-    'SELECT * FROM AUTOR ';
+    'SELECT * FROM EDITORA ';
   LPesquisaComFiltro := Trim(edtPesquisar.Text) <> '';
   if LPesquisaComFiltro then
     LSQL := LSQL + 'WHERE UPPER(NOME) LIKE UPPER(:nome)';
@@ -161,7 +157,7 @@ begin
   qryPadrao.Open;
 end;
 
-function TfrAutor.ValidaCampos: Boolean;
+function TfrEditora.ValidaCampos: Boolean;
 var LCamposPreechidos: Boolean;
 begin
   LCamposPreechidos := Trim(edtNome.Text) <> '';

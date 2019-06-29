@@ -19,7 +19,13 @@ uses
   uPadraoSQL in 'SQLs\uPadraoSQL.pas',
   uFrAutor in 'View\uFrAutor.pas' {frAutor},
   uAutorController in 'Controller\uAutorController.pas',
-  Main in 'Main.pas' {frMain};
+  Main in 'Main.pas' {frMain},
+  uFrEditora in 'View\uFrEditora.pas' {frEditora},
+  uEditoraController in 'Controller\uEditoraController.pas',
+  uFrUsuario in 'View\uFrUsuario.pas' {frUsuario},
+  uUsuarioController in 'Controller\uUsuarioController.pas',
+  uFrLivro in 'View\uFrLivro.pas' {frLivro},
+  uLivroController in 'Controller\uLivroController.pas';
 
 {$R *.res}
 

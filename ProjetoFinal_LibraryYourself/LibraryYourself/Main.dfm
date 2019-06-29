@@ -25,6 +25,18 @@ object frMain: TfrMain
         Caption = 'Autor'
         OnClick = mniAutorClick
       end
+      object mniEditora: TMenuItem
+        Caption = 'Editora'
+        OnClick = mniEditoraClick
+      end
+      object mniUsuario: TMenuItem
+        Caption = 'Usu'#225'rio'
+        OnClick = mniUsuarioClick
+      end
+      object mniLivro: TMenuItem
+        Caption = 'Livro'
+        OnClick = mniLivroClick
+      end
     end
   end
 end

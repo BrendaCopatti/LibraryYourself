@@ -5,15 +5,20 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, uAutorModel, RTTI,
-  Vcl.Menus, uFrAutor;
+  Vcl.Menus, uFrAutor, uFrEditora, uFrUsuario, uFrLivro;
 
 type
   TfrMain = class(TForm)
     mnMenu: TMainMenu;
     mniCadastro: TMenuItem;
     mniAutor: TMenuItem;
-    procedure Button1Click(Sender: TObject);
+    mniEditora: TMenuItem;
+    mniUsuario: TMenuItem;
+    mniLivro: TMenuItem;
     procedure mniAutorClick(Sender: TObject);
+    procedure mniEditoraClick(Sender: TObject);
+    procedure mniUsuarioClick(Sender: TObject);
+    procedure mniLivroClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -27,32 +32,32 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrMain.Button1Click(Sender: TObject);
-var Autor: TAutorModel;
-
-  ctxRtti : TRttiContext;
-  typRtti : TRttiType;
-  metRtti : TRttiMethod;
-begin
-  ctxRtti := TRttiContext.Create;
-  try
-    typRtti := ctxRtti.GetType(TAutorModel);
-
-//    for metRtti in typRtti.GetMethods do
-//      pMemo.Lines.Add(metRtti.Name);
-
-    metRtti := typRtti.GetMethod('CLOSE'); //Apenas para constar
-  finally
-    ctxRtti.Free;
-  end;
-
-end;
-
 procedure TfrMain.mniAutorClick(Sender: TObject);
 var frAutor: TFrAutor;
 begin
   Application.CreateForm(TFrAutor, frAutor);
   frAutor.show();
+end;
+
+procedure TfrMain.mniEditoraClick(Sender: TObject);
+var frEditora: TFrEditora;
+begin
+  Application.CreateForm(TFrEditora, frEditora);
+  frEditora.show();
+end;
+
+procedure TfrMain.mniUsuarioClick(Sender: TObject);
+var frUsuario: TFrEditora;
+begin
+  Application.CreateForm(TfrUsuario, frUsuario);
+  frUsuario.show();
+end;
+
+procedure TfrMain.mniLivroClick(Sender: TObject);
+var frLivro: TfrLivro;
+begin
+  Application.CreateForm(TfrLivro, frLivro);
+  frLivro.show();
 end;
 
 end.

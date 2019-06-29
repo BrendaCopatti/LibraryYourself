@@ -80,6 +80,10 @@ object frPadrao: TfrPadrao
     object tshCadastro: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
   end
   object panBotoesCadastro: TPanel
