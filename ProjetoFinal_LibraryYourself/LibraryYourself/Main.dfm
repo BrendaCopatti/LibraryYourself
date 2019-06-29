@@ -1,7 +1,7 @@
-object Form1: TForm1
+object frMain: TfrMain
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'Library Yourself'
   ClientHeight = 847
   ClientWidth = 1111
   Color = clBtnFace
@@ -10,16 +10,21 @@ object Form1: TForm1
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  FormStyle = fsMDIForm
+  Menu = mnMenu
   OldCreateOrder = False
+  WindowState = wsMaximized
   PixelsPerInch = 96
   TextHeight = 13
-  object Button1: TButton
-    Left = 128
-    Top = 88
-    Width = 75
-    Height = 25
-    Caption = 'Button1'
-    TabOrder = 0
-    OnClick = Button1Click
+  object mnMenu: TMainMenu
+    Left = 552
+    Top = 432
+    object mniCadastro: TMenuItem
+      Caption = 'Cadastro'
+      object mniAutor: TMenuItem
+        Caption = 'Autor'
+        OnClick = mniAutorClick
+      end
+    end
   end
 end

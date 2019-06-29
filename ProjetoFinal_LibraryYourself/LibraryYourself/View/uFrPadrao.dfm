@@ -10,11 +10,15 @@ object frPadrao: TfrPadrao
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  FormStyle = fsMDIChild
   OldCreateOrder = False
+  Visible = True
+  WindowState = wsMaximized
+  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object PageControl1: TPageControl
+  object pgcPadrao: TPageControl
     Left = 0
     Top = 40
     Width = 781
@@ -24,6 +28,7 @@ object frPadrao: TfrPadrao
     MultiLine = True
     TabOrder = 0
     TabPosition = tpBottom
+    OnChange = pgcPadraoChange
     object tshPesquisa: TTabSheet
       Caption = 'Pesquisar'
       object panPesquisa: TPanel
@@ -33,7 +38,7 @@ object frPadrao: TfrPadrao
         Height = 49
         Align = alTop
         TabOrder = 0
-        object lblPesquisarPor: TLabel
+        object lblPesquisar: TLabel
           Left = 11
           Top = 11
           Width = 69
@@ -41,37 +46,35 @@ object frPadrao: TfrPadrao
           Caption = 'Pesquisar por:'
         end
         object edtPesquisar: TEdit
-          Left = 224
+          Left = 86
           Top = 8
-          Width = 459
+          Width = 597
           Height = 21
           TabOrder = 0
-        end
-        object cbxPesquisar: TComboBox
-          Left = 82
-          Top = 8
-          Width = 136
-          Height = 21
-          TabOrder = 1
-          Text = 'cbxPesquisar'
         end
         object btnPesquisar: TButton
           Left = 688
           Top = 6
           Width = 75
           Height = 25
-          Caption = 'btnPesquisar'
-          TabOrder = 2
+          Caption = 'Pesquisar'
+          TabOrder = 1
         end
       end
-      object ListBox1: TListBox
+      object dbgPadrao: TDBGrid
         Left = 0
         Top = 49
         Width = 773
         Height = 380
         Align = alClient
-        ItemHeight = 13
+        DataSource = dtsPadrao
+        ReadOnly = True
         TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
       end
     end
     object tshCadastro: TTabSheet
@@ -87,27 +90,29 @@ object frPadrao: TfrPadrao
     Align = alTop
     TabOrder = 1
     object btnExcluir: TBitBtn
-      Left = 121
+      Left = 151
       Top = 1
-      Width = 40
+      Width = 50
       Height = 38
       Align = alLeft
       Caption = 'Excluir'
       TabOrder = 0
+      OnClick = btnExcluirClick
     end
     object btnCancelar: TBitBtn
-      Left = 81
+      Left = 101
       Top = 1
-      Width = 40
+      Width = 50
       Height = 38
       Align = alLeft
       Caption = 'Cancelar'
       TabOrder = 1
+      OnClick = btnCancelarClick
     end
     object btnGravar: TBitBtn
-      Left = 41
+      Left = 51
       Top = 1
-      Width = 40
+      Width = 50
       Height = 38
       Align = alLeft
       Caption = 'Gravar'
@@ -116,11 +121,22 @@ object frPadrao: TfrPadrao
     object btnIncluir: TBitBtn
       Left = 1
       Top = 1
-      Width = 40
+      Width = 50
       Height = 38
       Align = alLeft
       Caption = 'Incluir'
       TabOrder = 3
+      OnClick = btnIncluirClick
     end
+  end
+  object qryPadrao: TFDQuery
+    Connection = dmAcessaBanco.fdcLYS
+    Left = 384
+    Top = 256
+  end
+  object dtsPadrao: TDataSource
+    DataSet = qryPadrao
+    Left = 448
+    Top = 256
   end
 end

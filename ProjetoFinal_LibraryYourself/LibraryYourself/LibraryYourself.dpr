@@ -2,7 +2,6 @@ program LibraryYourself;
 
 uses
   Vcl.Forms,
-  Main in 'Main.pas' {Form1},
   uUsuarioModel in 'Model\uUsuarioModel.pas',
   uTelaModel in 'Model\uTelaModel.pas',
   uAutorModel in 'Model\uAutorModel.pas',
@@ -17,17 +16,17 @@ uses
   uPadraoDAO in 'DAO\uPadraoDAO.pas',
   uPadraoController in 'Controller\uPadraoController.pas',
   uBancoModel in 'Model\uBancoModel.pas',
-  uPadraoSQL in 'SQLs\uPadraoSQL.pas';
-
-//uGenericDAO in 'Frameworks\Persistencia\uGenericDAO.pas';
+  uPadraoSQL in 'SQLs\uPadraoSQL.pas',
+  uFrAutor in 'View\uFrAutor.pas' {frAutor},
+  uAutorController in 'Controller\uAutorController.pas',
+  Main in 'Main.pas' {frMain};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
-  Application.CreateForm(TfrPadrao, frPadrao);
   Application.CreateForm(TdmAcessaBanco, dmAcessaBanco);
+  Application.CreateForm(TfrMain, frMain);
   Application.Run;
 end.
