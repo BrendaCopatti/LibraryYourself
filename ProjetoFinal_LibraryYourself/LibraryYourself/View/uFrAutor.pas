@@ -55,6 +55,7 @@ procedure TfrAutor.btnExcluirClick(Sender: TObject);
 begin
   inherited;
   ExcluirRegistro();
+  PesquisarAutor();
 end;
 
 procedure TfrAutor.btnGravarClick(Sender: TObject);

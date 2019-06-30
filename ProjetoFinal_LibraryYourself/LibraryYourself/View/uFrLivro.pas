@@ -83,7 +83,7 @@ end;
 
 procedure TfrLivro.AlimentaComboEditoras;
 begin
-  FLivroController.AlimentaComboAutores(cbxEditora);
+  FLivroController.AlimentaComboEditoras(cbxEditora);
 end;
 
 procedure TfrLivro.dbgPadraoDblClick(Sender: TObject);
@@ -98,10 +98,10 @@ begin
     Exit;
   edtCodigo.Text := qryPadrao.FieldByName('codigo').AsString;
   edtTitulo.Text := qryPadrao.FieldByName('titulo').AsString;
-  cbxAutor.Items.IndexOfObject(
+  cbxAutor.ItemIndex := cbxAutor.Items.IndexOfObject(
     FLivroController.RetornaObjetoAutor(qryPadrao.FieldByName('autor_codigo').AsInteger));
-  cbxEditora.Items.IndexOfObject(
-    FLivroController.RetornaObjetoAutor(qryPadrao.FieldByName('editora_codigo').AsInteger));
+  cbxEditora.ItemIndex := cbxEditora.Items.IndexOfObject(
+    FLivroController.RetornaObjetoEditora(qryPadrao.FieldByName('editora_codigo').AsInteger));
   pgcPadrao.TabIndex := 1;
   AjustaVisibilidadeBotoes();
 end;
@@ -109,6 +109,7 @@ end;
 function TfrLivro.ExcluirRegistro: Boolean;
 begin
   FLivroController.ExcluirRegistro(qryPadrao.FieldByName('CODIGO').AsInteger);
+  PesquisarRegistros();
 end;
 
 procedure TfrLivro.FormCreate(Sender: TObject);
@@ -189,13 +190,13 @@ var LCamposPreechidos: Boolean;
 begin
   LCamposPreechidos :=
     (Trim(edtTitulo.Text) <> '') and
-    (cbxAutor.ItemIndex > 0) and
-    (cbxEditora.ItemIndex > 0);
+    (cbxAutor.ItemIndex >= 0) and
+    (cbxEditora.ItemIndex >= 0);
   if not (Trim(edtTitulo.Text) <> '') then
     ShowMessage('Preencha o campo título');
-  if not (cbxAutor.ItemIndex > 0) then
+  if not (cbxAutor.ItemIndex >= 0) then
     ShowMessage('Preencha o campo autor');
-  if not (cbxEditora.ItemIndex > 0) then
+  if not (cbxEditora.ItemIndex >= 0) then
     ShowMessage('Preencha o campo editora');
   Result := LCamposPreechidos;
 end;

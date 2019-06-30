@@ -53,6 +53,7 @@ procedure TfrUsuario.btnExcluirClick(Sender: TObject);
 begin
   inherited;
   ExcluirRegistro();
+  PesquisarRegistros();
 end;
 
 procedure TfrUsuario.btnGravarClick(Sender: TObject);

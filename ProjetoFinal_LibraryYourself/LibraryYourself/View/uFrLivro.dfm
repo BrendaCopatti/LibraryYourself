@@ -5,7 +5,6 @@ inherited frLivro: TfrLivro
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcPadrao: TPageControl
-    ActivePage = tshCadastro
     inherited tshPesquisa: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 4

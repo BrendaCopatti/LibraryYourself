@@ -75,7 +75,7 @@ procedure TLivroController.BuscaEditoras();
 begin
   if FQuery.Active then
     FQuery.Close;
-  FQuery.SQL.Text := 'SELECT * FROM AUTOR ORDER BY NOME';
+  FQuery.SQL.Text := 'SELECT * FROM EDITORA ORDER BY NOME';
   FQuery.Open();
   try
     FEditoras.Clear;
