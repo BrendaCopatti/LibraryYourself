@@ -27,7 +27,8 @@ uses
   uFrLivro in 'View\uFrLivro.pas' {frLivro},
   uLivroController in 'Controller\uLivroController.pas',
   uFrEmprestimo in 'View\uFrEmprestimo.pas' {frEmprestimo},
-  uEmprestimoController in 'Controller\uEmprestimoController.pas';
+  uEmprestimoController in 'Controller\uEmprestimoController.pas',
+  uFrLogin in 'View\uFrLogin.pas' {frLogin};
 
 {$R *.res}
 
@@ -36,5 +37,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TdmAcessaBanco, dmAcessaBanco);
   Application.CreateForm(TfrMain, frMain);
+  Application.CreateForm(TfrLogin, frLogin);
   Application.Run;
 end.

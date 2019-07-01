@@ -148,6 +148,10 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Controller\uEmprestimoController.pas"/>
+        <DCCReference Include="View\uFrLogin.pas">
+            <Form>frLogin</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
