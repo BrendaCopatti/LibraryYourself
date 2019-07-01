@@ -9,7 +9,7 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Buttons, Vcl.Grids,
   Vcl.DBGrids, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.WinXPickers,
-  Vcl.Mask, uEmprestimoController;
+  Vcl.Mask, uEmprestimoController, uUsuarioModel;
 
 type
   TfrEmprestimo = class(TfrPadrao)
@@ -44,7 +44,7 @@ type
     procedure AlimentaComboUsuarios();
     procedure AlimentaComboLivros();
   public
-    { Public declarations }
+    FUsuario: TUsuarioModel;
   end;
 
 var
@@ -52,7 +52,7 @@ var
 
 implementation
 
-uses uEmprestimoModel, uUsuarioModel, uLivroModel;
+uses uEmprestimoModel, uLivroModel;
 
 {$R *.dfm}
 

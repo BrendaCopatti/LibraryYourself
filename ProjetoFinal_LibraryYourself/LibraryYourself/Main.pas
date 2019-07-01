@@ -21,6 +21,7 @@ type
     procedure mniUsuarioClick(Sender: TObject);
     procedure mniLivroClick(Sender: TObject);
     procedure mniEmprestimoClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,7 +33,18 @@ var
 
 implementation
 
+uses uFrLogin;
+
 {$R *.dfm}
+
+procedure TfrMain.FormShow(Sender: TObject);
+var frLogin: TfrLogin;
+begin
+  frLogin := TfrLogin.Create(Self);
+  frLogin.frMain := Self;
+  if not (frLogin.ShowModal = mrOk) then
+    Application.Terminate;
+end;
 
 procedure TfrMain.mniAutorClick(Sender: TObject);
 var frAutor: TFrAutor;

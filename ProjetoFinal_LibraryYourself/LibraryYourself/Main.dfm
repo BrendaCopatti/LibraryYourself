@@ -14,6 +14,7 @@ object frMain: TfrMain
   Menu = mnMenu
   OldCreateOrder = False
   WindowState = wsMaximized
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object mnMenu: TMainMenu
