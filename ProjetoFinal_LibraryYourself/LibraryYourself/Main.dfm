@@ -37,6 +37,10 @@ object frMain: TfrMain
         Caption = 'Livro'
         OnClick = mniLivroClick
       end
+      object mniEmprestimo: TMenuItem
+        Caption = 'Emprestimo'
+        OnClick = mniEmprestimoClick
+      end
     end
   end
 end

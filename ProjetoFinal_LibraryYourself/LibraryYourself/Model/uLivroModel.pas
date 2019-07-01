@@ -20,6 +20,8 @@ type
 	  property Titulo:  String        read FTitulo    write SetTitulo;
     property Editora: TEditoraModel read FEditora   write SetEditora;
     property Autor:   TAutorModel   read FAutor     write SetAutor;
+
+    constructor Create(ACodigo: Integer = 0; ATitulo: String = '');
   end;
 
 implementation
@@ -27,6 +29,12 @@ implementation
 uses SysUtils;
 
 { TLivro }
+
+constructor TLivroModel.Create(ACodigo: Integer; ATitulo: String);
+begin
+  FCodigo := ACodigo;
+  FTitulo := ATitulo;
+end;
 
 procedure TLivroModel.SetAutor(const Value: TAutorModel);
 begin

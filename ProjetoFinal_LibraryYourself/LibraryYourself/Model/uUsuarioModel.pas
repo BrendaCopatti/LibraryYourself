@@ -27,6 +27,7 @@ type
     property CPF:           String  read FCPF           write SetCPF;
     property Celular:       String  read FCelular       write SetCelular;
 
+    constructor Create(ACodigo: Integer = 0; ANome: String = '');
   end;
 
 implementation
@@ -34,6 +35,12 @@ implementation
 uses SysUtils;
 
 { TUsuarioModel }
+
+constructor TUsuarioModel.Create(ACodigo: Integer; ANome: String);
+begin
+  FCodigo := ACodigo;
+  FNome := ANome;
+end;
 
 procedure TUsuarioModel.SetAdministrador(const Value: Boolean);
 begin

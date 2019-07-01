@@ -159,7 +159,7 @@ begin
     on E: Exception do
     begin
       Result := False;
-      ShowMessage('Ocorreu um erro na inclusão do editora.');
+      ShowMessage('Ocorreu um erro na inclusão do livro.');
     end;
   end;
 end;

@@ -25,7 +25,9 @@ uses
   uFrUsuario in 'View\uFrUsuario.pas' {frUsuario},
   uUsuarioController in 'Controller\uUsuarioController.pas',
   uFrLivro in 'View\uFrLivro.pas' {frLivro},
-  uLivroController in 'Controller\uLivroController.pas';
+  uLivroController in 'Controller\uLivroController.pas',
+  uFrEmprestimo in 'View\uFrEmprestimo.pas' {frEmprestimo},
+  uEmprestimoController in 'Controller\uEmprestimoController.pas';
 
 {$R *.res}
 
