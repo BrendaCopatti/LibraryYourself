@@ -93,6 +93,7 @@ end;
 
 function TfrAutor.ExcluirRegistro: Boolean;
 begin
+  FAutorController.frMain := frMain;
   FAutorController.ExcluirRegistro(qryPadrao.FieldByName('CODIGO').AsInteger);
 end;
 
@@ -123,7 +124,7 @@ begin
   try
     LAutor.Codigo := StrToIntDef(edtCodigo.Text,0);
     LAutor.Nome   := edtNome.Text;
-
+    FAutorController.frMain := frMain;
     if FAutorController.GravarRegistro(LAutor) then
     begin
       LimpaCampos();

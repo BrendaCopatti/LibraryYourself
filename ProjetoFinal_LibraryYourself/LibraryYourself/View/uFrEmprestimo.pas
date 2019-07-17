@@ -116,6 +116,7 @@ end;
 
 function TfrEmprestimo.ExcluirRegistro: Boolean;
 begin
+  FEmprestimoController.frMain := frMain;
   FEmprestimoController.ExcluirRegistro(qryPadrao.FieldByName('CODIGO').AsInteger);
   PesquisarRegistros();
 end;
@@ -139,6 +140,7 @@ begin
     LEmprestimo.DataRetirada := StrToDateDef(edtDataRetirada.Text,0);
     LEmprestimo.DataVencimento := StrToDateDef(edtDataVencimento.Text,0);
     LEmprestimo.DataDevolucao := StrToDateDef(edtDataDevolucao.Text,0);
+    FEmprestimoController.frMain := frMain;
     if FEmprestimoController.GravarRegistro(LEmprestimo) then
     begin
       LimpaCampos();

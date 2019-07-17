@@ -2,7 +2,7 @@ unit uLivroController;
 
 interface
 
-uses SysUtils, Dialogs, Vcl.StdCtrls, Generics.Collections,
+uses SysUtils, StrUtils, Dialogs, Vcl.StdCtrls, Generics.Collections,
      uLivroModel, uPadraoController, uEditoraModel, uAutorModel;
 
 type
@@ -115,10 +115,12 @@ begin
   FQuery.ParamByName('codigo').AsInteger := ACodigo;
   try
     FQuery.ExecSQL();
+    frMain.FLogController.GravaLog('Excluiu Livro '+ ACodigo.ToString);
   except
     on E: Exception do
     begin
       Result := False;
+      frMain.FLogController.GravaLog('Erro ao excluir Livro '+ ACodigo.ToString);
       ShowMessage('Ocorreu um erro ao excluir o registro');
     end;
   end;
@@ -155,10 +157,23 @@ begin
   FQuery.ParamByName('autor_codigo').AsInteger   := ALivroModel.Autor.Codigo;
   try
     FQuery.ExecSQL();
+    frMain.FLogController.GravaLog(
+      IfThen(LInsert, 'Inseriu ', 'Editou ') +
+      'Livro: código: ' + LCodigo.ToString +
+              ' nome: ' + ALivroModel.Titulo +
+    ' editora_codigo: ' + ALivroModel.Editora.Codigo.ToString +
+      ' autor_codigo: ' + ALivroModel.Autor.Codigo.ToString);
   except
     on E: Exception do
     begin
       Result := False;
+      frMain.FLogController.GravaLog(
+      'Erro ao '+
+      IfThen(LInsert, 'Inserir ', 'Editar ') +
+        'Livro: código: ' + LCodigo.ToString +
+                ' nome: ' + ALivroModel.Titulo +
+      ' editora_codigo: ' + ALivroModel.Editora.Codigo.ToString +
+        ' autor_codigo: ' + ALivroModel.Autor.Codigo.ToString);
       ShowMessage('Ocorreu um erro na inclusão do livro.');
     end;
   end;

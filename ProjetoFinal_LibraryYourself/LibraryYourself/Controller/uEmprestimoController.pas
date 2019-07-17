@@ -2,7 +2,7 @@ unit uEmprestimoController;
 
 interface
 
-uses SysUtils, Dialogs, Vcl.StdCtrls, Generics.Collections,
+uses SysUtils, StrUtils, Dialogs, Vcl.StdCtrls, Generics.Collections,
      uEmprestimoModel, uPadraoController, uUsuarioModel, uLivroModel,
      Variants, DB;
 
@@ -116,10 +116,12 @@ begin
   FQuery.ParamByName('codigo').AsInteger := ACodigo;
   try
     FQuery.ExecSQL();
+    frMain.FLogController.GravaLog('Excluiu Emprestimo '+ ACodigo.ToString);
   except
     on E: Exception do
     begin
       Result := False;
+      frMain.FLogController.GravaLog('Erro ao excluir Emprestimo '+ ACodigo.ToString);
       ShowMessage('Ocorreu um erro ao excluir o registro');
     end;
   end;
@@ -168,10 +170,25 @@ begin
     FQuery.ParamByName('datadevolucao').AsDateTime := AEmprestimoModel.DataDevolucao;
   try
     FQuery.ExecSQL();
+    frMain.FLogController.GravaLog(
+      IfThen(LInsert, 'Inseriu ', 'Editou ') +
+      'Emprestimo: codigo: ' + LCodigo.ToString +
+           ' livro_codigo: ' + AEmprestimoModel.Livro.Codigo.ToString  +
+         ' usuario_codigo: ' + AEmprestimoModel.Usuario.Codigo.ToString +
+           ' dataretirada: ' + FormatDateTime('dd/mm/yyyy',AEmprestimoModel.DataRetirada) +
+         ' datavencimento: ' + FormatDateTime('dd/mm/yyyy',AEmprestimoModel.DataVencimento));
   except
     on E: Exception do
     begin
       Result := False;
+      frMain.FLogController.GravaLog(
+      'Erro ao ' +
+      IfThen(LInsert, 'Inserir ', 'Editar ') +
+        'Emprestimo: codigo: ' + LCodigo.ToString +
+             ' livro_codigo: ' + AEmprestimoModel.Livro.Codigo.ToString  +
+           ' usuario_codigo: ' + AEmprestimoModel.Usuario.Codigo.ToString +
+             ' dataretirada: ' + FormatDateTime('dd/mm/yyyy',AEmprestimoModel.DataRetirada) +
+           ' datavencimento: ' + FormatDateTime('dd/mm/yyyy',AEmprestimoModel.DataVencimento));
       ShowMessage('Ocorreu um erro na inclusão do emprestimo.');
     end;
   end;

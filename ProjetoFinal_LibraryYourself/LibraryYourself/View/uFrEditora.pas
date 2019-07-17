@@ -89,6 +89,7 @@ end;
 
 function TfrEditora.ExcluirRegistro: Boolean;
 begin
+  FEditoraController.frMain := frMain;
   FEditoraController.ExcluirRegistro(qryPadrao.FieldByName('CODIGO').AsInteger);
 end;
 
@@ -119,7 +120,7 @@ begin
   try
     LEditora.Codigo := StrToIntDef(edtCodigo.Text,0);
     LEditora.Nome   := edtNome.Text;
-
+    FEditoraController.frMain := frMain;
     if FEditoraController.GravarRegistro(LEditora) then
     begin
       LimpaCampos();

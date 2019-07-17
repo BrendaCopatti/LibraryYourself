@@ -7,10 +7,6 @@ inherited frEditora: TfrEditora
   inherited pgcPadrao: TPageControl
     ActivePage = tshCadastro
     inherited tshPesquisa: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 4
-      ExplicitWidth = 773
-      ExplicitHeight = 429
       inherited panPesquisa: TPanel
         inherited btnPesquisar: TButton
           OnClick = btnPesquisarClick

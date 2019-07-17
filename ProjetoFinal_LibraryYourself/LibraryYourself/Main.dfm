@@ -14,13 +14,15 @@ object frMain: TfrMain
   Menu = mnMenu
   OldCreateOrder = False
   WindowState = wsMaximized
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object mnMenu: TMainMenu
-    Left = 552
-    Top = 432
-    object mniCadastro: TMenuItem
+    Left = 248
+    Top = 192
+    object mniCadastros: TMenuItem
       Caption = 'Cadastro'
       object mniAutor: TMenuItem
         Caption = 'Autor'
@@ -42,6 +44,9 @@ object frMain: TfrMain
         Caption = 'Emprestimo'
         OnClick = mniEmprestimoClick
       end
+    end
+    object mniRelatorios: TMenuItem
+      Caption = 'Relat'#243'rios'
     end
   end
 end

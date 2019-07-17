@@ -6,10 +6,6 @@ inherited frAutor: TfrAutor
   TextHeight = 13
   inherited pgcPadrao: TPageControl
     inherited tshPesquisa: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 4
-      ExplicitWidth = 773
-      ExplicitHeight = 429
       inherited panPesquisa: TPanel
         inherited lblPesquisar: TLabel
           Left = 5

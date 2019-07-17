@@ -4,11 +4,12 @@ interface
 
 uses SysUtils, Classes, Vcl.ExtCtrls, StdCtrls,
      uBancoModel, Generics.Collections, uPadraoDAO, dialogs, FireDAC.Comp.Client,
-     uDmAcessaBanco;
+     uDmAcessaBanco, Main;
 
 type
   TPadraoController = class
   public
+    frMain: TFrMain;
     FQuery: TFDQuery;
     function RetornaPrimaryKey(ACampoCodigo, ATabela: String): Integer;
 

@@ -8,7 +8,8 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Buttons, Vcl.Grids,
-  Vcl.DBGrids, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, uUsuarioController;
+  Vcl.DBGrids, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, uUsuarioController,
+  uPermissoesModel, uUsuarioModel;
 
 type
   TfrUsuario = class(TfrPadrao)
@@ -17,7 +18,14 @@ type
     edtCPF: TLabeledEdit;
     edtSenha: TLabeledEdit;
     edtCelular: TLabeledEdit;
-    cbxAdministrador: TCheckBox;
+    gbxPermissoes: TGroupBox;
+    cbxUsuario: TCheckBox;
+    cbxAutor: TCheckBox;
+    cbxEmprestimo: TCheckBox;
+    cbxEditora: TCheckBox;
+    cbxLivro: TCheckBox;
+    cbxPermissoes: TCheckBox;
+    qryPermissoes: TFDQuery;
     procedure btnIncluirClick(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
@@ -27,6 +35,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure dbgPadraoDblClick(Sender: TObject);
   private
+    FCodigoPermissoes: Integer;
     FUsuarioController: TUsuarioController;
     procedure LimpaCampos();
     procedure IncluirRegistro();
@@ -35,6 +44,9 @@ type
     procedure PesquisarRegistros();
     function ValidaCampos(): Boolean;
     procedure EditarRegistro();
+    procedure EditarRegistroPermissoes();
+    function GravaRegistoUsuario(): Boolean;
+    function GravaRegistoPermissoes(LCodigoUsuario: Integer): Boolean;
   public
   end;
 
@@ -42,8 +54,6 @@ var
   frUsuario: TfrUsuario;
 
 implementation
-
-uses uUsuarioModel;
 
 {$R *.dfm}
 
@@ -89,13 +99,36 @@ begin
   edtCPF.Text     := qryPadrao.FieldByName('cpf').AsString;
   edtSenha.Text   := qryPadrao.FieldByName('senha').AsString;
   edtCelular.Text := qryPadrao.FieldByName('celular').AsString;
-  cbxAdministrador.Checked := qryPadrao.FieldByName('administrador').AsBoolean;
   pgcPadrao.TabIndex := 1;
+  EditarRegistroPermissoes();
   AjustaVisibilidadeBotoes();
+end;
+
+procedure TfrUsuario.EditarRegistroPermissoes;
+var LSQL: String;
+begin
+  if not (qryPadrao.FieldByName('codigo').AsInteger > 0) then
+    Exit;
+  LSQL :=
+    'SELECT * FROM PERMISSOES WHERE USUARIO_CODIGO = :usuario_codigo';
+  if qryPermissoes.Active then
+    qryPermissoes.Close;
+  qryPermissoes.SQL.Text := LSQL;
+  qryPermissoes.ParamByName('usuario_codigo').AsInteger := qryPadrao.FieldByName('codigo').AsInteger;
+  qryPermissoes.Open;
+  FCodigoPermissoes     := qryPermissoes.FieldByName('codigo').AsInteger;
+  cbxUsuario.Checked    := qryPermissoes.FieldByName('acesso_usuario').AsBoolean;
+  cbxAutor.Checked      := qryPermissoes.FieldByName('acesso_autor').AsBoolean;
+  cbxEmprestimo.Checked := qryPermissoes.FieldByName('acesso_emprestimo').AsBoolean;
+  cbxEditora.Checked    := qryPermissoes.FieldByName('acesso_editora').AsBoolean;
+  cbxLivro.Checked      := qryPermissoes.FieldByName('acesso_livro').AsBoolean;
+  cbxPermissoes.Checked := qryPermissoes.FieldByName('acesso_permissoes').AsBoolean;
 end;
 
 function TfrUsuario.ExcluirRegistro: Boolean;
 begin
+  FUsuarioController.ExcluirRegistroPermissoes(qryPadrao.FieldByName('CODIGO').AsInteger);
+  FUsuarioController.frMain := frMain;
   FUsuarioController.ExcluirRegistro(qryPadrao.FieldByName('CODIGO').AsInteger);
 end;
 
@@ -117,11 +150,32 @@ begin
   PesquisarRegistros();
 end;
 
-function TfrUsuario.GravarRegistro: Boolean;
-var LUsuario: TUsuarioModel;
+function TfrUsuario.GravaRegistoPermissoes(LCodigoUsuario: Integer): Boolean;
+var LPermissoes: TPermissoesModel;
+    LUsuario: TUsuarioModel;
 begin
-  if not ValidaCampos() then
-    Exit;
+  LPermissoes := TPermissoesModel.Create;
+  LUsuario := TUsuarioModel.Create(LCodigoUsuario);
+  try
+    LPermissoes.Codigo           := FCodigoPermissoes;
+    LPermissoes.Usuario          := LUsuario;
+    LPermissoes.AcessoUsuario    := cbxUsuario.Checked;
+    LPermissoes.AcessoAutor      := cbxAutor.Checked;
+    LPermissoes.AcessoEditora    := cbxEditora.Checked;
+    LPermissoes.AcessoLivro      := cbxLivro.Checked;
+    LPermissoes.AcessoEmprestimo := cbxEmprestimo.Checked;
+    LPermissoes.AcessoPermissoes := cbxPermissoes.Checked;
+
+    Result := FUsuarioController.GravarRegistroPermissoes(LPermissoes);
+  finally
+    FreeAndNil(LPermissoes);
+  end;
+end;
+
+function TfrUsuario.GravaRegistoUsuario: Boolean;
+var LUsuario: TUsuarioModel;
+    LCodigo: Integer;
+begin
   LUsuario := TUsuarioModel.Create;
   try
     LUsuario.Codigo  := StrToIntDef(edtCodigo.Text,0);
@@ -129,16 +183,25 @@ begin
     LUsuario.CPF     := edtCPF.Text;
     LUsuario.Senha   := edtSenha.Text;
     LUsuario.Celular := edtCelular.Text;
-    LUsuario.Administrador := cbxAdministrador.Checked;
+    FUsuarioController.frMain := frMain;
+    LCodigo := FUsuarioController.GravarRegistro(LUsuario);
+    Result :=  LCodigo > 0;
 
-    if FUsuarioController.GravarRegistro(LUsuario) then
-    begin
-      LimpaCampos();
-      ShowMessage('Registro incluído com sucesso.');
-    end;
+    GravaRegistoPermissoes(LCodigo);
   finally
     FreeAndNil(LUsuario);
   end;
+end;
+
+function TfrUsuario.GravarRegistro: Boolean;
+var LUsuario: TUsuarioModel;
+begin
+  if not ValidaCampos() then
+    Exit;
+  if not GravaRegistoUsuario() then
+    Exit;
+  LimpaCampos();
+  ShowMessage('Registro incluído com sucesso.');
 end;
 
 procedure TfrUsuario.IncluirRegistro;
@@ -153,7 +216,14 @@ begin
   edtCPF.Text     := '';
   edtSenha.Text   := '';
   edtCelular.Text := '';
-  cbxAdministrador.Checked := False;
+
+  FCodigoPermissoes     := 0;
+  cbxUsuario.Checked    := false;
+  cbxAutor.Checked      := false;
+  cbxEmprestimo.Checked := false;
+  cbxEditora.Checked    := false;
+  cbxLivro.Checked      := false;
+  cbxPermissoes.Checked := false;
 end;
 
 procedure TfrUsuario.PesquisarRegistros;

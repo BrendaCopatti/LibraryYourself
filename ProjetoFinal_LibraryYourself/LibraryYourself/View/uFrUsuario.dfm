@@ -7,10 +7,6 @@ inherited frUsuario: TfrUsuario
   inherited pgcPadrao: TPageControl
     ActivePage = tshCadastro
     inherited tshPesquisa: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 4
-      ExplicitWidth = 773
-      ExplicitHeight = 429
       inherited panPesquisa: TPanel
         inherited btnPesquisar: TButton
           OnClick = btnPesquisarClick
@@ -82,13 +78,61 @@ inherited frUsuario: TfrUsuario
         MaxLength = 11
         TabOrder = 4
       end
-      object cbxAdministrador: TCheckBox
-        Left = 147
-        Top = 24
-        Width = 134
-        Height = 17
-        Caption = 'Usu'#225'rio administrador'
+      object gbxPermissoes: TGroupBox
+        Left = 16
+        Top = 243
+        Width = 749
+        Height = 106
+        Caption = 'Permiss'#245'es'
         TabOrder = 5
+        object cbxUsuario: TCheckBox
+          Left = 28
+          Top = 25
+          Width = 57
+          Height = 17
+          Caption = 'Usu'#225'rio'
+          TabOrder = 0
+        end
+        object cbxAutor: TCheckBox
+          Left = 28
+          Top = 48
+          Width = 57
+          Height = 17
+          Caption = 'Autor'
+          TabOrder = 1
+        end
+        object cbxEmprestimo: TCheckBox
+          Left = 128
+          Top = 48
+          Width = 76
+          Height = 17
+          Caption = 'Emprestimo'
+          TabOrder = 2
+        end
+        object cbxEditora: TCheckBox
+          Left = 28
+          Top = 71
+          Width = 57
+          Height = 17
+          Caption = 'Editora'
+          TabOrder = 3
+        end
+        object cbxLivro: TCheckBox
+          Left = 128
+          Top = 25
+          Width = 57
+          Height = 17
+          Caption = 'Livro'
+          TabOrder = 4
+        end
+        object cbxPermissoes: TCheckBox
+          Left = 128
+          Top = 71
+          Width = 76
+          Height = 17
+          Caption = 'Permiss'#245'es'
+          TabOrder = 5
+        end
       end
     end
   end
@@ -96,5 +140,18 @@ inherited frUsuario: TfrUsuario
     inherited btnGravar: TBitBtn
       OnClick = btnGravarClick
     end
+  end
+  inherited qryPadrao: TFDQuery
+    Left = 456
+    Top = 56
+  end
+  inherited dtsPadrao: TDataSource
+    Left = 520
+    Top = 56
+  end
+  object qryPermissoes: TFDQuery
+    Connection = dmAcessaBanco.fdcLYS
+    Left = 344
+    Top = 272
   end
 end

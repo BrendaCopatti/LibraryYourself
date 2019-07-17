@@ -108,6 +108,7 @@ end;
 
 function TfrLivro.ExcluirRegistro: Boolean;
 begin
+  FLivroController.frMain := frMain;
   FLivroController.ExcluirRegistro(qryPadrao.FieldByName('CODIGO').AsInteger);
   PesquisarRegistros();
 end;
@@ -143,6 +144,7 @@ begin
     LLivro.Titulo := edtTitulo.Text;
     LLivro.Autor   := TAutorModel(cbxAutor.Items.Objects[cbxAutor.ItemIndex]);
     LLivro.Editora := TEditoraModel(cbxEditora.Items.Objects[cbxEditora.ItemIndex]);
+    FLivroController.frMain := frMain;
     if FLivroController.GravarRegistro(LLivro) then
     begin
       LimpaCampos();

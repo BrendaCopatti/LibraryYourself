@@ -2,7 +2,7 @@ unit uAutorController;
 
 interface
 
-uses SysUtils, uAutorModel, uPadraoController, Dialogs;
+uses SysUtils, uAutorModel, uPadraoController, Dialogs, StrUtils;
 
 type
   TAutorController = class(TPadraoController)
@@ -25,10 +25,12 @@ begin
   FQuery.ParamByName('codigo').AsInteger := ACodigo;
   try
     FQuery.ExecSQL();
+    frMain.FLogController.GravaLog('Excluiu Autor '+ ACodigo.ToString);
   except
     on E: Exception do
     begin
       Result := False;
+      frMain.FLogController.GravaLog('Erro ao excluir Autor '+ ACodigo.ToString);
       ShowMessage('Ocorreu um erro ao excluir o registro');
     end;
   end;
@@ -60,10 +62,19 @@ begin
   FQuery.ParamByName('nome').AsString    := AAutorModel.Nome;
   try
     FQuery.ExecSQL();
+    frMain.FLogController.GravaLog(
+      IfThen(LInsert, 'Inseriu ', 'Editou ') +
+      'Autor: código: ' + LCodigo.ToString +
+              ' nome: ' + AAutorModel.Nome);
   except
     on E: Exception do
     begin
       Result := False;
+      frMain.FLogController.GravaLog(
+        'Erro ao '+
+        IfThen(LInsert, 'Inserir ', 'Editar ') +
+        'Autor: código: ' + LCodigo.ToString +
+                ' nome: ' + AAutorModel.Nome);
       ShowMessage('Ocorreu um erro na inclusão do autor.');
     end;
   end;

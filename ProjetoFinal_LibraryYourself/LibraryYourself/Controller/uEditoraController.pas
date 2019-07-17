@@ -2,7 +2,7 @@ unit uEditoraController;
 
 interface
 
-uses SysUtils, Dialogs, uPadraoController, uEditoraModel;
+uses SysUtils, StrUtils, Dialogs, uPadraoController, uEditoraModel;
 
 type
   TEditoraController = class(TPadraoController)
@@ -24,10 +24,12 @@ begin
   FQuery.ParamByName('codigo').AsInteger := ACodigo;
   try
     FQuery.ExecSQL();
+    frMain.FLogController.GravaLog('Excluiu Editora '+ ACodigo.ToString);
   except
     on E: Exception do
     begin
       Result := False;
+      frMain.FLogController.GravaLog('Erro ao excluir Editora '+ ACodigo.ToString);
       ShowMessage('Ocorreu um erro ao excluir o registro');
     end;
   end;
@@ -60,10 +62,19 @@ begin
   FQuery.ParamByName('nome').AsString    := AEditoraModel.Nome;
   try
     FQuery.ExecSQL();
+    frMain.FLogController.GravaLog(
+      IfThen(LInsert, 'Inseriu ', 'Editou ') +
+      'Editora: código: ' + LCodigo.ToString +
+              ' nome: ' + AEditoraModel.Nome);
   except
     on E: Exception do
     begin
       Result := False;
+      frMain.FLogController.GravaLog(
+        'Erro ao '+
+        IfThen(LInsert, 'Inserir ', 'Editar ') +
+        'Editora: código: ' + LCodigo.ToString +
+                ' nome: ' + AEditoraModel.Nome);
       ShowMessage('Ocorreu um erro na inclusão do editora.');
     end;
   end;
