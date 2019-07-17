@@ -155,6 +155,10 @@
         <DCCReference Include="Model\uPermissoesModel.pas"/>
         <DCCReference Include="Controller\uLogController.pas"/>
         <DCCReference Include="Model\uLogModel.pas"/>
+        <DCCReference Include="View\uFrLog.pas">
+            <Form>frLog</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -5,7 +5,6 @@ inherited frEditora: TfrEditora
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcPadrao: TPageControl
-    ActivePage = tshCadastro
     inherited tshPesquisa: TTabSheet
       inherited panPesquisa: TPanel
         inherited btnPesquisar: TButton

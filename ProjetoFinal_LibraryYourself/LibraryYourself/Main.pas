@@ -17,7 +17,8 @@ type
     mniUsuario: TMenuItem;
     mniLivro: TMenuItem;
     mniEmprestimo: TMenuItem;
-    mniRelatorios: TMenuItem;
+    mniLogs: TMenuItem;
+    mniLog: TMenuItem;
     procedure mniAutorClick(Sender: TObject);
     procedure mniEditoraClick(Sender: TObject);
     procedure mniUsuarioClick(Sender: TObject);
@@ -26,6 +27,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure mniLogClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -39,7 +41,8 @@ var
 
 implementation
 
-uses uFrLogin, uFrAutor, uFrEditora, uFrUsuario, uFrLivro, uFrEmprestimo;
+uses uFrLogin, uFrAutor, uFrEditora, uFrUsuario, uFrLivro, uFrEmprestimo,
+  uFrLog;
 
 {$R *.dfm}
 
@@ -122,6 +125,13 @@ begin
   Application.CreateForm(TfrLivro, frLivro);
   frLivro.frMain := Self;
   frLivro.show();
+end;
+
+procedure TfrMain.mniLogClick(Sender: TObject);
+var frLog: TfrLog;
+begin
+  Application.CreateForm(TfrLog, frLog);
+  frLog.show();
 end;
 
 procedure TfrMain.mniEmprestimoClick(Sender: TObject);

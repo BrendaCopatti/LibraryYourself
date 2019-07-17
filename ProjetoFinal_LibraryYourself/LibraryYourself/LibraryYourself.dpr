@@ -31,7 +31,8 @@ uses
   uFrLogin in 'View\uFrLogin.pas' {frLogin},
   uPermissoesModel in 'Model\uPermissoesModel.pas',
   uLogController in 'Controller\uLogController.pas',
-  uLogModel in 'Model\uLogModel.pas';
+  uLogModel in 'Model\uLogModel.pas',
+  uFrLog in 'View\uFrLog.pas' {frLog};
 
 {$R *.res}
 

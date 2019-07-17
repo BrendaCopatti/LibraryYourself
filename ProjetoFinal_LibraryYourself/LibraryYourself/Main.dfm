@@ -45,8 +45,12 @@ object frMain: TfrMain
         OnClick = mniEmprestimoClick
       end
     end
-    object mniRelatorios: TMenuItem
-      Caption = 'Relat'#243'rios'
+    object mniLogs: TMenuItem
+      Caption = 'Logs'
+      object mniLog: TMenuItem
+        Caption = 'Log'
+        OnClick = mniLogClick
+      end
     end
   end
 end
